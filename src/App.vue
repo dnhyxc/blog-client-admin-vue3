@@ -1,25 +1,30 @@
 <template>
-  <child ref="childRef" />
+  <div class="app">
+    <Home />
+    <Slot>
+      <template #header>
+        <div>header</div>
+      </template>
+      <template #default="{ data, index }">
+        <div>{{ data.auther }} -- {{ data.tag }} -- {{ index }}</div>
+      </template>
+      <template #footer>
+        <div>footer</div>
+      </template>
+    </Slot>
+  </div>
 </template>
 
-<script lang="ts">
-import { ref, onMounted } from "vue";
-import child from "./components/child/index.vue";
-
-export default {
-  components: { child },
-  setup() {
-    let childRef = ref(null);
-    onMounted(() => {
-      console.log(child);
-      console.log(child.value.name);
-      console.log(child.value.age);
-    });
-
-    return { childRef };
-  },
-};
+<script setup lang="ts">
+import Slot from "./components/Slot/index.vue";
+import Home from "./view/home/index.vue";
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.app {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #333;
+}
 </style>
